@@ -1,0 +1,23 @@
+ul.list-unstyled li {
+    padding: 15px;
+}
+
+.grid {
+    width: 500px;
+    height: 400px;
+}
+
+header{
+	height:50px;
+	    border: solid;
+}
+
+footer{
+	margin-top:3.2em;
+}
+.margin-top-8{
+	margin-top:.8em;
+}
+.page-footer {
+	color:#999;
+}

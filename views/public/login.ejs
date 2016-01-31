@@ -1,0 +1,75 @@
+<div class="row">
+      
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h1>Login Here</h1>
+		<hr/>
+      </div>
+
+      
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <h4>Use other accounts</h4>
+          <p>You can also sign in using your Facebook Account or Google Account.</p>
+          <ul class="list-unstyled">
+            <li><a href="/auth/facebook" class="btn btn-primary" ng-click="setGA({'event':'event','eventType':'FACBOOK_LOGIN_CLICK','msg':'FACBOOK_LOGIN_CLICK'})"><span class="fa fa-facebook"></span>Facebook</a></li>
+            <!-- li><a href="/auth/twitter" class="btn btn-info" ng-click="setGA({'event':'event','eventType':'TWITTER_LOGIN_CLICK','msg':'TWITTER_LOGIN_CLICK'})"><span class="fa fa-twitter"></span>Twitter</a></li -->
+            <li><a href="/auth/google" class="btn btn-danger" ng-click="setGA({'event':'event','eventType':'GOOGLE_LOGIN_CLICK','msg':'GOOGLE_LOGIN_CLICK'})"><span class="fa fa-google-plus"></span>Google</a></li>
+          </ul>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <h4>Use your account</h4>
+        <div class="alert alert-danger" role="alert" ng-show="loginAction.isInalidEmailId || loginAction.isInvalidPassword || loginAction.isInalidEmailId_Password">
+
+          <div ng-show="loginAction.isInalidEmailId">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Enter a valid email address
+          </div>
+
+          <div ng-show="loginAction.isInvalidPassword">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Enter a valid password
+          </div>
+
+          <div ng-show="loginAction.isInalidEmailId_Password">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Invalid userid and password
+          </div>
+
+        </div>
+      
+        <form method="post" action="/login#/loginview" role="from" ng-submit="loginAction.submitLogin($event)" novalidate >
+		  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+            <input name="email" type="text" class="form-control" placeholder="Email" ng-model="loginAction.email" required>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+            <input name="password" type="password" class="form-control" placeholder="Password" ng-model="loginAction.password" required>
+          </div>
+         <!-- div class="checkbox">
+            <label><input type="checkbox"> Remember me</label>
+        </div -->
+		
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+           <button type="submit" class="btn btn-primary"  ng-click="setGA({'event':'event','eventType':'LOGIN_PAGE_PAGE_SUBMIT_CLICK','msg':'LOGIN_PAGE_PAGE_SUBMIT_CLICK'})">Login</button>  
+        </div>
+		
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-8">
+			<a href="#/forgotpassword" ng-click="setGA({'event':'event','eventType':'LOGIN_PAGE_PAGE_FORGOT_CLICK','msg':'LOGIN_PAGE_PAGE_FORGOT_CLICK'})">Forgot Password</a>
+        </div>
+		
+        </form> 
+      </div>
+		
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-8">
+			<h3>Need an account?</h3>
+			<hr />
+			<p>Click on Signup to create new user account.</p>
+            <h4> <a  href="/signup" ng-click="setGA({'event':'event','eventType':'LOGIN_PAGE_PAGE_SIGNUP_CLICK','msg':'LOGIN_PAGE_PAGE_SIGNUP_CLICK'})">Signup</a></h4>
+        </div>
+      
+         
+    </div>
+     
+ 

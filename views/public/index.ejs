@@ -1,0 +1,50 @@
+  <% include ../template/htmldoctype %>
+  <head>
+	<!-- Add Meta tag -->
+	<% include ../template/search-meta-tag %>
+	<!-- End Meta tag -->
+
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Free Info</title>
+	<!-- Add include css files -->
+	<% include ../template/common-css.ejs %>
+  </head>
+
+  <body ng-app="publicMain" ng-controller="publicMainController">
+	
+	<% if(typeof message != "undefined") {%>
+	<input type="hidden" ng-model="pageError" ng-init ='setInitPageValue(
+		{"error" : "<%= message.error %>","errorType":"<%= message.errorType %>","description":"<%= message.description %>"})' />
+	<% } %>
+    
+	<!-- start public header -->
+	<% include ./public-header %>
+	<!-- end public header -->
+   
+  <!-- start container -->
+  <div class="container">
+	  <ui-view></ui-view>
+	</div>
+	<!-- end container -->
+    
+	<!-- start public footer -->
+	<% include ./public-footer %>
+	<!-- end public footer -->
+    
+	<!-- Inlcude JS files -->
+  <% include ../template/common-js.ejs %>
+	<!-- -->
+	<script src="/js/public-main.js?v=<%=new Date().getTime();%>"></script>
+	<script src="/js/controller/login.ctrl.js?v=<%=new Date().getTime();%>"></script>
+	<script src="/js/factory/validator.fctry.js?v=<%=new Date().getTime();%>"></script>
+	<script src="/js/service/public.svc.js?v=<%=new Date().getTime();%>"></script>
+
+	<!-- Add google analytic code here -->
+	<% include ../template/ganalytictrackerid %>
+	<!-- End google analytic code here -->
+
+	<!-- Add google adsense -->
+	<% include ../template/gadsense %>
+	<!-- End google adsense -->
+  </body>
+</html>

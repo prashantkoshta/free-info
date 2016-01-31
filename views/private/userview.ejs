@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <h1>Manage Project</h1>
+	<hr/>
+  </div>
+  
+    
+   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	  <div class="table-responsive">
+		<table ng-table="tableConfigParam" class="table table-condensed table-bordered table-striped">
+			<colgroup>
+			  <col width="15%" />	
+			  <col width="30%" />
+			  <col width="40%" />
+			  <col width="15%" />
+			</colgroup>
+			<tr ng-repeat="row in $data" ng-form="rowForm" demo-tracked-table-row="row">
+				<td data-title="'Project Id'" filter="{'_id':'text'}" sortable="'_id'"><span ng-hide="{{row.editable}}">{{row._id}}</span><a ui-sref="editproject({'projectid':'{{row._id}}'})" ng-show="{{row.editable}}">{{row._id}}</a></td>
+				<td data-title="'Project Name'" filter="{'projectname':'text'}" sortable="'projectname'">{{row.projectname}}</td>
+				<td data-title="'Team Member'" sortable="'projectteam'"><ul class="td-list" ng-bind-html="row.projectteam | getTeamList"></ul></td>
+				<td data-title="'Edit Team Member'"><span ng-hide="{{row.editable}}"></span><a ui-sref="editteam({'projectid':'{{row._id}}'})" ng-show="{{row.editable}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+		  </tr>
+		</table>
+	  </div>
+   </div>
+  
+</div>
+
+
+
+
