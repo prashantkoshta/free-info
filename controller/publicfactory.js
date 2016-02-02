@@ -1,39 +1,56 @@
 // load up the user model
 var async    = require('async');
 var config = require('../config/config');
-var indexcounter  = require('../models/indexcounter');
+var genrateKey = require('../config/genratekey');
+var Department  = require('../models/department');
 var genrateKey = require('../config/genratekey');
 
 var factory = function(){};
 
-factory.prototype.deleteProjectTeamMember = function(data,user,done){
-	async.waterfall([
-		function(callback){
-			/*Projects.findOne({"_id":data.projectid,"projectteam":{$elemMatch:{"userid":user._id,"projectrole" : "projectadmin"}}},{},function(err,project){
-				if(err)throw err;
-				if(!project) callback(new Error(true),"You are not Authenticated to update Team Details.",null);
-				callback();
-			}).sort({'projectname': 1});*/
-		},
-		function(callback){
-			/*Projects.findOneAndUpdate({"_id": data.projectid},{$pull: {"projectteam":{"userid":data.userid,"projectrole":data.projectrole}}},
-			{ multi: false },function(err, obj) {
-				if(err) throw err;
-				callback(null,obj);
-			});*/
-		}
-	],function(err,data){
-		if(err) return done(true,data,null);
-		done(false,"",data);			
-	});
-	
+factory.prototype.getAllDepartment = function(done){
+	Department.getAllDepartment()
+	.then(function(result){done(false,"",result);})
+	.catch(function(error){done(true,data,null);});
 };
 
-factory.prototype.getBatchList = function(user,done){
-	Batchs.find({},{buildtype:1,desc:1},function(err,batchList){
-		if(err)throw err;
-		done(false,"",batchList);
-	}).sort({'desc': 1});
+factory.prototype.addDepartment = function(data,done){
+	async.waterfall([
+	    function(callback){
+			Department.getDepartmentByName(data.deptname)
+				.then(function(result){
+					if(!result) {
+						callback();
+					}else{
+						callback(new Error(true),"Duplicate Entry",null);
+					}
+				})
+				.catch(function(error){
+					 callback(new Error(true),"",error);
+				});
+			
+		},
+		function(callback){
+			genrateKey.genrateNewIndexId("dept",function(arg){
+				callback(null,arg);
+			});
+		},
+		function(deptId,callback){
+				var d = new Department();
+				d._id = deptId;
+				d.deptname = data.deptname;
+				Department.createDepartment(d)
+				.then(function(result){callback(null,result);})
+				.catch(function(error){
+					callback(new Error(true),"",error);
+				});
+		}
+	],function(err,data){
+		if(err) done(true,data,null);
+		done(false,"",data);
+	});
+	
+	
+
 };
 
 module.exports = factory;

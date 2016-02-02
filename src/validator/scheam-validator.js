@@ -185,6 +185,7 @@ var deleteProjectSchema = {
 }
 
 
+
 var updateProjectTeamMemberRoleSchema = {
 	"id": "/updateProjectTeamMemberRoleSchema",
 	"type": "object",
@@ -204,6 +205,17 @@ var updateProjectTeamMemberRoleSchema = {
 	required: ['projectid','userid','projectrole',"action"]
 }
 
+// Added
+var addDepartmentSchema = {
+	"id": "/addDepartmentSchema",
+	"type": "object",
+	properties: {
+				deptname : {type: 'string'}
+	},
+	additionalProperties: false,
+	required: ["deptname"]
+}
+
 var schemaMap = {
 	"projectBuildsSchema" : projectBuildsSchema,
 	"createProjectSchema" : createProjectSchema,
@@ -216,7 +228,8 @@ var schemaMap = {
 	"projectAccessHistorySchema" : projectAccessHistorySchema,
 	"statusUpdateSchema" : statusUpdateSchema,
 	"deleteProjectSchema" : deleteProjectSchema,
-	"updateProjectTeamMemberRoleSchema" : updateProjectTeamMemberRoleSchema
+	"updateProjectTeamMemberRoleSchema" : updateProjectTeamMemberRoleSchema,
+	"addDepartmentSchema" : addDepartmentSchema
 };
 v.addSchema(gitSchema, '/gitSchema');
 v.addSchema(svnSchema, '/svnSchema');

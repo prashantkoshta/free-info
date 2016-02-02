@@ -28,11 +28,19 @@ router.get('/faq', function(req, res) {
 	res.render('public/faq.ejs');
 });
 
-router.get('/deleteProject', ReqJsonValidator.deleteProjectSchema, function (req, res) {
+router.get('/getDept', function (req, res) {
 	var factory = new PublicFactory();
-	factory.deleteProject(req.body,function(errorFlag,erroType,result){
-		res.json({ 'error': errorFlag, 'errorType': erroType, "data": result});
+	factory.getAllDepartment(function(errorFlag,erroType,result){
+		res.json({'error': errorFlag, 'errorType': erroType, "data": result});
 	});
 });
+
+router.post('/addDept', ReqJsonValidator.addDepartmentSchema, function (req, res) {
+	var factory = new PublicFactory();
+	factory.addDepartment(req.body,function(errorFlag,erroType,result){
+		res.json({'error': errorFlag, 'errorType': erroType, "data": result});
+	});
+});
+
 
 module.exports = router;

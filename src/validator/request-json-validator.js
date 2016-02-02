@@ -107,6 +107,18 @@ AppJSONReqInputValidator.prototype.updateProjectTeamMemberRoleSchema = function(
 	}
 };
 
+AppJSONReqInputValidator.prototype.addDepartmentSchema = function(req, res, next) {
+	var results = schemavalidator.validateInputJSON("addDepartmentSchema",req.body);
+	if(results.errors.length>0){
+		res.json({ 'error': true, 'errorType': "Invalid Input", "data": results.errors});
+	}else{
+		next();
+	}
+};
+
+
+
+
 
 
 module.exports = new AppJSONReqInputValidator();

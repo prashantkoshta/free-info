@@ -3,9 +3,21 @@
 var mongoose = require('mongoose');
 var crypto   = require('crypto');
 // define the schema for our user model
-var indexcounter = mongoose.Schema({
+var IndexCounterSchema = mongoose.Schema({
 	_id : String,
 	seq : Number,
 	prefix : String
 });
-module.exports = mongoose.model('IndexCounter', indexcounter);
+
+// Static Methods
+IndexCounterSchema.static.saveDepartment = function(department){
+	var deferred = Q.defer();
+    department.save(function(error){
+        if (error) deferred.reject(new Error(error));
+        else deferred.resolve(department);
+    });
+    return deferred.promise;
+}
+
+
+module.exports = mongoose.model('IndexCounter', IndexCounterSchema);
