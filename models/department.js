@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Q = require("q");
 
-var DepartmentSchema = mongoose.Schema({
+var DepartmentSchema = new Schema({
 	"_id" : String,
 	'deptname' : String
-});
+},{ versionKey: false });
 
 // Static Methods
 DepartmentSchema.statics.getAllDepartment = function(){

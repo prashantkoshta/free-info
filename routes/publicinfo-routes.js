@@ -27,7 +27,7 @@ router.get('/termsconditions', function(req, res) {
 router.get('/faq', function(req, res) {
 	res.render('public/faq.ejs');
 });
-
+// Departments
 router.get('/getDept', function (req, res) {
 	var factory = new PublicFactory();
 	factory.getAllDepartment(function(errorFlag,erroType,result){
@@ -42,5 +42,20 @@ router.post('/addDept', ReqJsonValidator.addDepartmentSchema, function (req, res
 	});
 });
 
+
+//Posts
+router.get('/getPost', function (req, res) {
+	var factory = new PublicFactory();
+	factory.getPost(function(errorFlag,erroType,result){
+		res.json({'error': errorFlag, 'errorType': erroType, "data": result});
+	});
+});
+
+router.post('/addPost',function (req, res) {
+	var factory = new PublicFactory();
+	factory.createPost(req.body,function(errorFlag,erroType,result){
+		res.json({'error': errorFlag, 'errorType': erroType, "data": result});
+	});
+});
 
 module.exports = router;

@@ -2,12 +2,16 @@ var mongoose = require('mongoose');
 var crypto   = require('crypto');
 var Q = require("q");
 var PostSchema = mongoose.Schema({
-	"_id" : String,
+	"_id" :  { type: String, index: { unique: true } },
 	"fullname" : String,
 	"userid" : String,
+	"createddate" :  {
+            type: Date,
+            default: Date.now
+    },
 	"departments" : {
 			"_id":String,
-			"deptname":String,
+			"deptname":{ type: String, index: true },
 			"address":{
 					"country":String,
 					"state":String,
@@ -22,9 +26,8 @@ var PostSchema = mongoose.Schema({
 		"title" : String,
 		"desc" : String,
 		"published" : String,
-		"createddate" : Date
 	},
-	"publishtracker" : [
+	"publishreminder" : [
 		{
 			"publisheddate" : Date
 		}
@@ -38,7 +41,16 @@ PostSchema.statics.getAllPost = function(){
     this.find({}, function(error, post){
         if (error) deferred.reject(new Error(error));
         else deferred.resolve(post);
-    }).sort({"deptname":1});
+    }).sort({"departments.deptname":1});
+    return deferred.promise;
+};
+
+PostSchema.statics.createPost = function(post){
+	var deferred = Q.defer();
+    post.save(function(error){
+        if (error) deferred.reject(new Error(error));
+        else deferred.resolve(post);
+    });
     return deferred.promise;
 };
 
